@@ -334,7 +334,7 @@ nav.scrolled .nav-links {
 .hero-bg-img {
   position: absolute; inset: 0; z-index: 0;
   background-color: #141416;
-  background-image: url('assets/hero-bg.png');
+  background-image: url('assets/hero-bg.webp');
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;

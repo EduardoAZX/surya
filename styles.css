@@ -524,36 +524,87 @@ nav.scrolled .nav-links {
   box-shadow: 0 -1px 0 rgba(255,255,255,0.07);
 }
 
-.problem-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+.problem-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 1.3fr 1fr;
+  gap: 56px; align-items: center;
+}
 
 .problem-lead {
-  font-size: clamp(17px, 2vw, 19px); line-height: 1.8;
-  color: var(--text); margin-bottom: 44px;
+  text-align: left;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px; line-height: 1.5;
+  font-weight: 500; letter-spacing: -.005em;
+  color: var(--heading);
+}
+.problem-lead em {
+  font-style: italic; font-weight: 700;
+  background: var(--gold-grad);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 
 .problem-blocks {
-  display: flex; flex-direction: column; gap: 18px;
+  display: flex; flex-direction: column; gap: 22px;
   text-align: left;
 }
 
 .problem-block {
-  padding: 26px 30px;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-left: 2px solid var(--gold);
-  border-radius: 0 16px 16px 0;
+  padding: 34px 38px;
+  background:
+    linear-gradient(140deg, rgba(240,192,48,0.22) 0%, rgba(212,152,15,0.06) 55%, rgba(212,152,15,0.02) 100%),
+    var(--glass-bg);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1.5px solid rgba(240,192,48,0.45);
+  border-radius: 28px;
+  position: relative;
+  box-shadow:
+    0 24px 64px rgba(0,0,0,0.32),
+    0 0 0 1px rgba(240,192,48,0.08) inset,
+    0 0 48px rgba(212,152,15,0.16);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
-.problem-block--gold { border-left-color: var(--gold-light); }
+.problem-block:hover {
+  transform: translateY(-5px);
+  border-color: rgba(240,192,48,0.70);
+  box-shadow:
+    0 32px 80px rgba(0,0,0,0.38),
+    0 0 0 1px rgba(240,192,48,0.14) inset,
+    0 0 64px rgba(212,152,15,0.26);
+}
+.problem-block--gold {
+  background:
+    linear-gradient(140deg, rgba(240,192,48,0.30) 0%, rgba(212,152,15,0.09) 55%, rgba(212,152,15,0.03) 100%),
+    var(--glass-bg);
+  border-color: rgba(240,192,48,0.60);
+}
+:root[data-theme="light"] .problem-block {
+  background:
+    linear-gradient(140deg, rgba(59,65,60,0.16) 0%, rgba(59,65,60,0.05) 55%, rgba(59,65,60,0.01) 100%),
+    var(--glass-bg);
+  border-color: rgba(59,65,60,0.35);
+  box-shadow:
+    0 24px 64px rgba(59,65,60,0.18),
+    0 0 0 1px rgba(59,65,60,0.06) inset,
+    0 0 48px rgba(59,65,60,0.10);
+}
+:root[data-theme="light"] .problem-block--gold {
+  background:
+    linear-gradient(140deg, rgba(59,65,60,0.22) 0%, rgba(59,65,60,0.07) 55%, rgba(59,65,60,0.02) 100%),
+    var(--glass-bg);
+  border-color: rgba(59,65,60,0.45);
+}
 
 .problem-block h3 {
   font-family: 'Playfair Display', Georgia, serif;
   font-style: italic; font-weight: 700;
   font-size: clamp(19px, 2.4vw, 23px);
-  color: var(--heading); margin-bottom: 10px;
+  letter-spacing: -.005em;
+  color: var(--heading); margin-bottom: 12px;
 }
 
 .problem-block p {
-  font-size: 15px; line-height: 1.75; color: var(--muted);
+  font-size: 15px; line-height: 1.85; color: var(--muted);
 }
 
 /* ══════════════════════════════════════════════
@@ -1131,6 +1182,7 @@ footer {
   .videos-grid { grid-template-columns: 1fr 1fr; }
   .video-card:nth-child(3) { grid-column: 1 / -1; max-width: 400px; margin: 0 auto; }
   .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  .problem-inner { grid-template-columns: 1fr; gap: 32px; }
   .results-checklist { padding: 40px 32px; margin-top: 56px; }
   .checklist { grid-template-columns: 1fr; }
   .about-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
@@ -1151,8 +1203,9 @@ footer {
   .hero-actions { justify-content: center; }
   /* hero usa placeholder em gradiente (sem imagem específica para mobile) */
   .problem-section  { border-radius: 24px 24px 0 0; margin-top: -28px; padding: 64px 0 60px; }
-  .problem-lead { margin-bottom: 30px; }
-  .problem-block { padding: 20px 22px; }
+  .problem-lead { font-size: 21px; }
+  .problem-lead br { display: none; }
+  .problem-block { padding: 22px 22px; }
   .results-checklist { padding: 32px 24px; }
   .contact-section  { border-radius: 24px 24px 0 0; margin-top: -24px; }
   .about-section    { border-radius: 24px 24px 0 0; margin-top: -24px; }

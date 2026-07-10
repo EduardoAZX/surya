@@ -1,170 +1,119 @@
-# Shape Glúteo · Dra. Surya Braga — Landing Page
+# Dra. Michele Souza — Landing Page
 
-Landing page estática (HTML + CSS, sem framework) para captação de leads da
-**Shape Glúteo · Dra. Surya Braga — Harmonização Corporal Avançada** (Foz do Iguaçu e São Paulo).
+Landing page de captação de leads para a **Dra. Michele Souza**, médica especialista em **Tricologia Avançada**, com foco em protocolos personalizados para recuperação capilar masculina sem necessidade de transplante.
 
 ---
 
-## 📁 Estrutura de arquivos
+## 📁 Estrutura de pastas
 
 ```
-Surya/
-├── index.html              → página principal (hero, antes/depois, formulário, sobre, FAQ)
-├── obrigado.html           → página de agradecimento (pós-envio do formulário)
-├── styles.css              → todos os estilos (tokens de tema, layout, responsivo)
-├── .htaccess               → regras de URL (remove .html, serve em subpasta)
-├── assets/                 → vazia (imagens definitivas da Dra. Surya entram aqui)
-├── meta-capi/              → Pixel + CAPI em PHP puro (versão p/ a landing estática)
-│   ├── capi.php
-│   └── capi.js
-└── meta-pixel-geovana/     → mesma integração, mas como plugin WordPress (herdado)
-    ├── meta-pixel-geovana.php
-    └── capi.js
+Micheli/
+├── index.html          # Estrutura semântica das 6 dobras + modais de Termos/Privacidade
+├── style.css            # Design system + componentes + responsividade
+├── app.js                # Reveals, máscara de WhatsApp, validação e submit do form, modais
+├── README.md             # Este arquivo
+├── obrigado.html          # Página de obrigado (redirecionada após o envio do formulário)
+└── assets/
+    ├── img.webp                    # Hero (placeholder — trocar pela foto da Dra. Michele)
+    ├── dra-raquel-editorial.webp   # Foto editorial para a seção "Sobre" (placeholder — trocar)
+    ├── antes-01..04.webp           # Antes/depois — lado A (placeholder — trocar por casos capilares)
+    └── depois-01..04.webp          # Antes/depois — lado B (placeholder — trocar por casos capilares)
 ```
 
-> ⚠️ Há **duas implementações** do Pixel/CAPI na pasta (`meta-capi` em PHP puro e
-> `meta-pixel-geovana` como plugin WordPress). Use **uma** conforme onde a página
-> roda — ver seção Rastreamento e Pendências.
+> ⚠️ As imagens em `assets/` ainda são as antigas (otoplastia, Dra. Raquel) — mantidas apenas como placeholder de layout até a substituição pelas fotos reais da Dra. Michele.
 
 ---
 
-## 🖼️ Imagens (placeholders)
+## 🎨 Design system
 
-Todas as imagens do site usam **placeholders em gradiente grafite** com o rótulo
-"Foto em breve":
+| Token               | Valor       | Uso                                          |
+|----------------------|-------------|-----------------------------------------------|
+| `--c-primary`        | `#3B82F6`   | Botões, badges, destaques, gradiente azul     |
+| `--c-primary-2`      | `#1D4ED8`   | Gradiente, textos de destaque                 |
+| `--c-primary-light`  | `#8FB4FF`   | Texto de destaque sobre fundos escuros        |
+| `--c-secondary`      | `#E7EAEE`   | Fundos sutis, placeholders                    |
+| `--c-accent`         | `#14181D`   | Texto principal, CTA escuro                   |
+| `--c-bg`             | `#F7F8FA`   | Fundo padrão (off-white clínico)              |
+| `--c-text`           | `#14181D`   | Texto (grafite escuro)                        |
 
-- 3 cards de antes/depois (Bumbum de Bilhões, Perfect Seios do Brasil, Combo Shape)
-- foto da doutora (seção Sobre)
-- fundo do hero (gradiente, sem imagem)
-
-As fotos do projeto anterior **foram removidas**. Quando as imagens da Dra. Surya
-chegarem, insira-as em `assets/` e reconecte os trechos (cards em `index.html` e o
-`.hero-bg-img` em `styles.css`).
-
----
-
-## 🚀 Como o site é publicado (IMPORTANTE)
-
-O site **não fica na raiz do domínio**. Ele é enviado para uma **subpasta** dentro
-de `public_html`, ao lado de um **WordPress que ocupa a raiz** (mesmo modelo dos
-outros projetos).
-
-```
-public_html/
-├── (WordPress: wp-admin, wp-content, wp-includes, ...)  ← raiz do domínio
-└── subpasta/        ← AQUI vão os arquivos desta landing
-    ├── index.html
-    ├── obrigado.html
-    ├── styles.css
-    ├── .htaccess
-    ├── assets/
-    └── meta-capi/   (se usar o Pixel via PHP puro)
-```
-
-A landing abre em `dominio.com.br/subpasta/` e a página de obrigado em
-`dominio.com.br/subpasta/obrigado`. **Testar `/obrigado` na raiz dá 404** — lá é o
-WordPress, não esta landing.
-
-> Ao subir arquivos, envie **todos** (incl. `.htaccess`, que é oculto — ligue
-> "mostrar arquivos ocultos" no Gerenciador de Arquivos/FTP).
+- **Fontes:** Playfair Display (serif, headings) + Inter (sans, corpo) — via Google Fonts.
+- **Efeitos:** glassmorphism (`backdrop-filter: blur`), sombras suaves em camadas (`--shadow-sm/md/lg/glow`), gradientes suaves em azul/grafite.
+- **Favicon:** SVG inline com a inicial **M** sobre o tom primário azul.
 
 ---
 
-## 🔗 .htaccess · URLs limpas
+## 🧩 Seções da LP
 
-O `.htaccess` faz, com caminhos **relativos** (funciona em qualquer subpasta):
+### 🔵 Dobra 1 — Hero
+- **Imagens:** `assets/img.webp` (placeholder).
+- CTA primário (`#agendar`) e CTA fantasma (`#resultados`).
 
-1. Remove a extensão: `/subpasta/obrigado.html` → `/subpasta/obrigado`
-2. Serve internamente o arquivo: `/subpasta/obrigado` entrega `obrigado.html`
+### 🔵 Dobra 2 — Prova Social (Resultados Reais)
+- **Imagens:** `assets/antes-0[1-4].webp` e `assets/depois-0[1-4].webp` (placeholder).
+- Grid 2×2 de pares antes/depois com tag + legenda.
 
----
+### 🔵 Dobra 3 — Formulário (captação)
+- **Campos:** Nome, WhatsApp (máscara `(00) 00000-0000`), E-mail, "Qual o seu maior incômodo hoje?" (select: afinando / entradas / queda).
+- Validação client-side em `app.js`. Ao validar com sucesso, redireciona para `obrigado`.
+- **Webhook do Make removido** — `MAKE_WEBHOOK_URL` está vazio em `app.js` (ver `TODO`); colar a URL correta quando disponível.
 
-## 📨 Formulário → Make → Planilha
+### 🔵 Dobra 4 — Sobre a Especialista
+- **Imagens:** `assets/dra-raquel-editorial.webp` (placeholder).
+- Copy de autoridade + destaques (sem transplante / foco masculino / tecnologia) + CTA escuro.
 
-O formulário (`#contactForm` no `index.html`) envia por `fetch` (POST JSON) para um
-**webhook do Make**. O endereço está como placeholder **`WEBHOOK_MAKE_URL`** —
-substituir pela URL real do cenário da Shape Glúteo antes de publicar.
+### 🔵 Dobra 5 — Perguntas Frequentes (FAQ)
+- Seção nova (não existia no template original), usando `<details>/<summary>` nativos como acordeão.
+- 4 perguntas sobre genética, uso de hormônios, tempo de resultado e necessidade de transplante.
 
-Campos enviados no payload:
-
-| Campo          | Origem                             |
-|----------------|------------------------------------|
-| `nome`         | input `#form-name`                 |
-| `telefone`     | input `#form-whatsapp`             |
-| `email`        | input `#form-email`                |
-| `procedimento` | select `#form-procedure`           |
-| `origem`       | URL da página                      |
-| `data`         | data do envio (ex: `12 jun. 2026`) |
-| `hora`         | hora do envio (ex: `09h30`)        |
-
-Opções do select de área: **Harmonização de Glúteo · Harmonização de Seios ·
-Ambos os procedimentos**.
-
-Após o envio bem-sucedido, o usuário é redirecionado para **`obrigado`** (URL limpa).
+### 🔵 Dobra 6 — Rodapé
+- Endereço: Barretos · Araraquara, São Paulo.
+- Barra inferior: copyright + links de Termos de Uso / Política de Privacidade (abrem em modal) / Desenvolvido por AZX Performance.
 
 ---
 
-## 🙏 Página de obrigado
+## 📜 Termos de Uso & Política de Privacidade
 
-`obrigado.html` mostra a confirmação e um botão **"Falar pelo WhatsApp agora"**.
-O link está como placeholder **`WHATSAPP_LINK`** — substituir pelo link de chat
-oficial da Dra. Surya.
+Acessíveis via modal a partir dos links no rodapé (`#openTerms` / `#openPrivacy`). A Política de Privacidade é redigida com base na **LGPD (Lei nº 13.709/2018)**, cobrindo: dados coletados, finalidade do tratamento, base legal, compartilhamento, armazenamento/segurança e direitos do titular.
 
 ---
 
-## 🎨 Tema e identidade visual
+## 🔌 Integrações — pendências
 
-- Tema **claro por padrão** (`<html data-theme="light">`), com alternância sol/lua.
-- A preferência do usuário é salva em `localStorage` na chave `surya-theme`.
-- **Paleta monocromática** grafite + branco (token `--gold-grad`):
-  - Grafite `#3b413c` (acento no tema claro) · branco/prata `#c9cec9`–`#ffffff`
-    (acento no tema escuro), sobre fundos branco (claro) / grafite escuro `#181b19` (escuro).
-- Fonte única: **Montserrat**.
+- **Google Tag Manager:** removido (era o container da Dra. Raquel, `GTM-MJQJPGBC`). Colar o snippet correto no `<head>` e `<noscript>` de `index.html` e `obrigado.html` (local marcado com `TODO`).
+- **Webhook do Make/CRM:** removido de `app.js` (`MAKE_WEBHOOK_URL = ''`). Colar a URL correta quando disponível.
+- **WhatsApp da página de obrigado:** número placeholder (`5500000000000`) em `obrigado.html`. Substituir pelo número real da Dra. Michele.
+- **Imagens:** todas em `assets/` são placeholders da Dra. Raquel (orelhas). Substituir pelos arquivos reais mantendo os mesmos nomes de arquivo para não precisar tocar no HTML.
 
 ---
 
-## 📊 Rastreamento
+## 📱 Responsividade
 
-- **Google Tag Manager:** container `GTM-XXXXXXX` (placeholder — inserir o ID real).
-- **Meta Pixel + Conversions API:** Pixel ID `SEU_PIXEL_ID` e token `SEU_CAPI_TOKEN`
-  (placeholders — inserir os valores reais da conta da Shape Glúteo).
-  - Dispara **PageView** e **Lead** (após envio bem-sucedido) com **deduplicação por
-    `event_id`**, hash SHA-256 de e-mail/telefone no navegador e rate limiting por IP.
-  - O **token da CAPI fica só no servidor**, nunca no navegador.
-
-| Cenário                              | Use                          | Como                                                          |
-|--------------------------------------|------------------------------|--------------------------------------------------------------|
-| Landing estática em subpasta         | `meta-capi/` (PHP puro)      | Subir a pasta junto da landing; `index.html` já chama `capi.js`. |
-| Página rodando no WordPress da raiz  | `meta-pixel-geovana/` (WP)   | Empacotar como plugin e instalar no WP Admin.                |
-
-> Não use as duas ao mesmo tempo na mesma página.
+| Faixa                | Comportamento                                          |
+|-----------------------|--------------------------------------------------------|
+| **≥ 1024px**          | Layouts em 2 colunas (hero, form, about); grid 2×2 nas provas |
+| **768–1023px**        | Mesmas grids mantidas, com `clamp()` reduzindo gaps     |
+| **≤ 880px**           | Hero, form e about colapsam para 1 coluna               |
+| **≤ 760px**           | Grid de provas vira 1 coluna                            |
+| **≤ 520px**           | Ajustes finos de tipografia, botões em largura total e FAQ compacto |
+| **≤ 480px**           | Barra inferior do rodapé empilha em coluna              |
 
 ---
 
-## ✅ Pendências / a confirmar
+## 🔒 Segurança
 
-- [ ] **Card "Combo Shape"** (3º de Antes & Depois) — conteúdo provisório criado a
-      partir dos dois protocolos. Confirmar o texto/título definitivos com a Dra. Surya.
-- [ ] **Paleta** — aplicada como grafite `#3b413c` + branco. Confirmar se reflete a
-      identidade visual real (a fonte pedia "dourado/bronze"; as cores foram definidas
-      pelo cliente como #FFFFFF e #3B413C).
-- [ ] **Fotos da Dra. Surya** — hoje placeholders. Inserir imagens reais.
-- [ ] **GTM** — substituir `GTM-XXXXXXX` pelo container real.
-- [ ] **Pixel + Token CAPI (CRÍTICO)** — substituir `SEU_PIXEL_ID` e `SEU_CAPI_TOKEN`
-      pelos valores reais. O token antigo (herdado) foi removido e deve ser tratado
-      como **comprometido** (revogar no Gerenciador de Eventos).
-- [ ] **Webhook do Make** — substituir `WEBHOOK_MAKE_URL` pela URL real do cenário.
-- [ ] **WhatsApp** — substituir `WHATSAPP_LINK` em `obrigado.html` pelo link oficial.
-- [ ] **Domínio + subpasta de produção** — confirmar a URL de publicação.
-- [ ] **SSL** — confirmar certificado ativo antes de forçar HTTPS.
-- [ ] **Prefixos internos `geo_*` / pasta `meta-pixel-geovana/`** — ainda carregam o
-      nome de um projeto anterior. Renomear se o plugin WordPress for usado (exige
-      ajustar também a chamada `window.geoTrackLead` no `index.html`).
+- Sem `innerHTML`/`eval`/`document.write` no client-side (sem vetor de XSS via DOM).
+- Links externos (`target="_blank"`) sempre com `rel="noopener noreferrer"`.
+- Sem conteúdo via `http://` (mixed content).
+- Validação client-side do formulário em `app.js`; validação server-side deverá ser adicionada junto da integração de envio.
 
 ---
 
-## 🛠️ Rodar localmente
+## 🤝 Como contribuir
 
-Sirva a pasta com um servidor estático (ex.: `python -m http.server`).
-Obs.: o servidor estático local **ignora o `.htaccess`** (URLs limpas só funcionam
-no Apache de produção) e o endpoint PHP (`meta-capi/capi.php`) só roda com PHP.
+- **Adicionar uma nova seção:** crie o markup dentro de `index.html` entre duas dobras existentes, atribua um `data-screen-label="NN Nome"` e adicione as classes ao final de `style.css` seguindo o padrão `.nome-secao__elemento`.
+- **Mudar a paleta:** edite as custom properties no topo de `style.css` (`:root`).
+- **Mudar copy:** todas as strings estão diretamente em `index.html` — sem CMS / template engine.
+
+---
+
+© 2026 Dra. Michele Souza — Todos os direitos reservados.
